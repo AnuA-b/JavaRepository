@@ -1,0 +1,14 @@
+@relation file
+
+@attribute 'Student No' {S01,S02,S03,S04,S05,S06}
+@attribute 'No Of Classes Attended' numeric
+@attribute 'Total Exam Marks' numeric
+@attribute 'Dairy completion Rate' numeric
+
+@data
+S01,20,90,0.8
+S02,18,85,0.7
+S03,22,88,0.9
+S04,20,70,0.8
+S05,18,65,0.7
+S06,21,88,0.8
