@@ -23,7 +23,7 @@ public class StudentMain {
 //Create a temporary data in a excel format with the following-Student No, No Of Classes Attended,Total Exam Marks,Dairy completion rate,Month
 //Write a program which can read the excel file and print the above data using collection framework.
 
-try {
+
             File file = new File("C:\\Users\\Dell\\eclipse-workspace\\Book1.xlsx");
             FileInputStream fis = new FileInputStream(file);
 
@@ -106,7 +106,7 @@ try {
 //Make use of algorithm of your choice
 //For all the students print the labels – high performing, low performing and medium performing.
 
-try {
+
 			 Instances data = ConverterUtils.DataSource.read("C:\\Users\\Dell\\eclipse-workspace\\td1.arff");
 
 		        //select only from column 1 to the end
