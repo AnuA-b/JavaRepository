@@ -150,7 +150,7 @@ public class StudentMain {
             
 //Create PDF files with Label: High performer or Medium performer or Low performer
 
-CreatePDFThread thread1 = new CreatePDFThread(c0, "doc1.pdf");
+		CreatePDFThread thread1 = new CreatePDFThread(c0, "doc1.pdf");
 	        CreatePDFThread thread2 = new CreatePDFThread(c1, "doc2.pdf");
 	        CreatePDFThread thread3 = new CreatePDFThread(c2, "doc3.pdf");
 
