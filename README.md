@@ -106,87 +106,35 @@ public class StudentMain {
 //Make use of algorithm of your choice
 //Create PDF files with Label: High performer or Medium performer or Low performer
 
-	    Instances data = ConverterUtils.DataSource.read("C:\\Users\\Dell\\eclipse-workspace\\td1.arff");
+            Instances data = ConverterUtils.DataSource.read("C:\\Users\\Dell\\eclipse-workspace\\td1.arff");
+            data.setClassIndex(data.numAttributes() - 1);
 
-            // Create the K-means clustering algorithm
-            SimpleKMeans kMeans = new SimpleKMeans();
-            kMeans.setNumClusters(3); // Set the number of clusters
+            // Create the Naive Bayes classifier
+            Classifier classifier = new NaiveBayes();
+            classifier.buildClassifier(data);
 
-            // Build clusters
-            kMeans.buildClusterer(data);
-
-            // Build an arrayList of 3 clusters
-            ArrayList<String> c0 = new ArrayList<>();
-            ArrayList<String> c1 = new ArrayList<>();
-            ArrayList<String> c2 = new ArrayList<>();
-            
-         // Assign instances to clusters
-            System.out.println("\nStudent Numbers and their corresponding clusters: ");
+            // Loop through the instances
             for (int i = 0; i < data.numInstances(); i++) {
-                int res = kMeans.clusterInstance(data.instance(i));
-                Attribute firstAttribute = data.attribute(0);
-                String n = firstAttribute.value(i);
-
-                if (res == 0) {
-                    String n1 = n + ": Low Performer";
-                    System.out.println(n + " " + res + " Low Performer");
-                    c0.add(n1);
+                // Get the instance and class label
+                double classLabel = classifier.classifyInstance(data.instance(i));
+                String studentNo = "";
+                if (data.numAttributes() > 0) {
+                    studentNo = data.instance(i).stringValue(0);
                 }
-                if (res == 1) {
-                    String n2 = n + ": High Performer";
-                    System.out.println(n + " " + res + " High Performer");
-                    c1.add(n2);
-                }
-                if (res == 2) {
-                    String n3 = n + ": Medium Performer";
-                    System.out.println(n + " " + res + " Medium performer");
-                    c2.add(n3);
-                }
-            }
+                String predictedClassLabel = data.classAttribute().value((int) classLabel);
 
-            // Generate PDFs for each student
-            for (String student : c0) {
-                String[] parts = student.split(":");
-                String studentNo = parts[0].trim();
-                String label = parts[1].trim();
-
-                generatePDF(studentNo, label);
-            }
-          
-            for (String student : c1) {
-                String[] parts = student.split(":");
-                String studentNo = parts[0].trim();
-                String label = parts[1].trim();
-
-                generatePDF(studentNo, label);
-            }
-
-            for (String student : c2) {
-                String[] parts = student.split(":");
-                String studentNo = parts[0].trim();
-                String label = parts[1].trim();
-
-                generatePDF(studentNo, label);
+                // Create a PDF file per student
+                String pdfFileName = studentNo + ".pdf";
+                Document document = new Document();
+           	 Path outputPath = Paths.get("C:\\Users\\Dell\\eclipse-workspace\\" + pdfFileName);
+               PdfWriter.getInstance(document, new FileOutputStream(outputPath.toFile()));
+                document.open();
+                document.add(new Paragraph("Student No: " + studentNo));
+                document.add(new Paragraph("Label: " + predictedClassLabel));
+                document.close();
             }
 
             System.out.println("\nPDFs have been created successfully.");
-			
-//method to generate PDF
-
-	private static void generatePDF(String studentNo, String label) {
-		Document document = new Document();
-		
-        try {
-        	String pdfFileName = studentNo + ".pdf";
-        	Path outputPath = Paths.get("C:\\Users\\Dell\\eclipse-workspace\\" + pdfFileName);
-            PdfWriter.getInstance(document, new FileOutputStream(outputPath.toFile()));
-            document.open();
-            document.add(new Paragraph("Student No: " + studentNo));
-            document.add(new Paragraph("Label: " + label));
-            document.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }	
+	    
             
 
