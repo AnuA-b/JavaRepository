@@ -1,0 +1,15 @@
+@relation Student_Performance
+
+@attribute StudentNo {S01, S02, S03, S04, S05, S06}
+@attribute NoOfClassesAttended numeric
+@attribute TotalExamMarks numeric
+@attribute DiaryCompletionRate numeric
+@attribute Performance {High, Medium, Low}
+
+@data
+S01, 10, 43, 0.4, High
+S02, 10, 40, 0.3, Low
+S03, 11, 50, 0.5, Medium
+S04, 9, 35, 0.3,Low
+S05, 10, 30, 0.4, Medium
+S06, 11, 40, 0.5, High
