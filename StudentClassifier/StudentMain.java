@@ -123,7 +123,7 @@ public class StudentMain {
 		
 	try {
             // Load the ARFF file
-            Instances data = ConverterUtils.DataSource.read("C:\\Users\\Dell\\eclipse-workspace\\Student_Performance.arff");
+            Instances data = ConverterUtils.DataSource.read("C:\\Users\\Dell\\eclipse-workspace\\td1.arff");
             data.setClassIndex(data.numAttributes() - 1);
 
             // Create the Naive Bayes classifier
